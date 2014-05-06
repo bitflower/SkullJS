@@ -1,10 +1,13 @@
-/*! bitflower bfApp 
+/*! bitflower SkullJS 
  * Version: 1.2
  * Author: Matthias Max
  * Copyright bitflower 2014
  *
  * Change Log:
  * -----------
+ * 2014-05-05:
+ * - loadImages: FireFox Bug wenn img.src = "" gesetzt wurde
+ *
  * 2014-04-23:
  * - addImageToLoad: prüfen, ob Container/Image paar bereits hinzugefügt
  * - getTemplate (Mustache)
@@ -25,7 +28,7 @@
  * - get Footer-/Header Height mit outerHoight
  * - round (neu)
 */
-var bfApp = (function () {
+var SkullJS = (function () {
 
     // Apple/iOS
     var IsiPhone = navigator.userAgent.indexOf("iPhone") != -1;
