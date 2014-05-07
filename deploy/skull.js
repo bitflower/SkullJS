@@ -1,10 +1,13 @@
 /*! bitflower SkullJS 
- * Version: 1.2
+ * Version: 1.3
  * Author: Matthias Max
  * Copyright bitflower 2014
  *
  * Change Log:
  * -----------
+ * 2014-05-07:
+ * - loadImages: delete image from array after load, error or missing url
+ *
  * 2014-05-05:
  * - loadImages: FireFox Bug wenn img.src = "" gesetzt wurde
  *
@@ -28,7 +31,7 @@
  * - get Footer-/Header Height mit outerHoight
  * - round (neu)
 */
-var SkullJS = (function () {
+var skullJS = (function () {
 
     // Apple/iOS
     var IsiPhone = navigator.userAgent.indexOf("iPhone") != -1;
@@ -237,12 +240,14 @@ var SkullJS = (function () {
             image.onerror = function() {
                 //alert('Fehler beim Laden des Bildes: ' + image.src);
 
+                arrImagesToLoad[kategorie].splice(index, 1);
+
                 if (typeof (callbackProgress) == "function") {
                     callbackProgress(index + 1, arrImagesToLoad[kategorie].length, objAdditional);
                 }
 
                 //now load next image
-                me.loadImages(index + 1, indexImgURL, indexImgCSSClass, callback, callbackProgress, returnObject, kategorie);
+                me.loadImages(index , indexImgURL, indexImgCSSClass, callback, callbackProgress, returnObject, kategorie);
             }
 
             //bind load event
@@ -282,12 +287,14 @@ var SkullJS = (function () {
                     }
                 }
 
+                arrImagesToLoad[kategorie].splice(index, 1);
+
                 if (typeof (callbackProgress) == "function") {
                     callbackProgress(index + 1, arrImagesToLoad[kategorie].length, image, objAdditional);
                 }
 
                 //now load next image
-                me.loadImages(index + 1, indexImgURL, indexImgCSSClass, callback, callbackProgress, returnObject, kategorie);
+                me.loadImages(index, indexImgURL, indexImgCSSClass, callback, callbackProgress, returnObject, kategorie);
             }
 
             //add image path
@@ -295,22 +302,28 @@ var SkullJS = (function () {
                 if (objBildInfo[indexImgURL] != '') {
                     image.src = objBildInfo[indexImgURL];
                 } else {
+
+                    arrImagesToLoad[kategorie].splice(index, 1);
+
                     if (typeof (callbackProgress) == "function") {
                         callbackProgress(index + 1, arrImagesToLoad[kategorie].length, null, objAdditional);
                     }
 
                     //now load next image
-                    me.loadImages(index + 1, indexImgURL, indexImgCSSClass, callback, callbackProgress, returnObject, kategorie);
+                    me.loadImages(index, indexImgURL, indexImgCSSClass, callback, callbackProgress, returnObject, kategorie);
                 }
                 
             } catch (e) {
                 // alert(e);
+
+                arrImagesToLoad[kategorie].splice(index, 1);
+
                 if (typeof (callbackProgress) == "function") {
                     callbackProgress(index + 1, arrImagesToLoad[kategorie].length, null, objAdditional);
                 }
 
                 //now load next image
-                me.loadImages(index + 1, indexImgURL, indexImgCSSClass, callback, callbackProgress, returnObject, kategorie);
+                me.loadImages(index, indexImgURL, indexImgCSSClass, callback, callbackProgress, returnObject, kategorie);
             } finally {
 
             }
