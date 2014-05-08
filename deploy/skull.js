@@ -1,10 +1,13 @@
 /*! bitflower SkullJS 
- * Version: 1.3
+ * Version: 1.3.1
  * Author: Matthias Max
  * Copyright bitflower 2014
  *
  * Change Log:
  * -----------
+ * 2014-05-08:
+ * - getWPUrl: BugFix
+ *
  * 2014-05-07:
  * - loadImages: delete image from array after load, error or missing url
  *
@@ -372,7 +375,7 @@ var skullJS = (function () {
         setWPUrl: function (value) {
             strWPUrl = value;
         },
-        getWPUrl: function (value) {
+        getWPUrl: function () {
             return strWPUrl;
         },
 
