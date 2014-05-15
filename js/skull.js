@@ -1,10 +1,14 @@
 /*! bitflower SkullJS 
- * Version: 1.3.1
+ * Version: 1.3.2
  * Author: Matthias Max
  * Copyright bitflower 2014
  *
  * Change Log:
  * -----------
+ * 2014-05-15:
+ * - isBrowserChrome Check
+ * - isArray Function
+ *
  * 2014-05-08:
  * - getWPUrl: BugFix
  *
@@ -36,12 +40,13 @@
 */
 var skullJS = (function () {
 
-    // Apple/iOS
+    // Apple/iOS / Browserweichen
     var IsiPhone = navigator.userAgent.indexOf("iPhone") != -1;
     var IsiPod = navigator.userAgent.indexOf("iPod") != -1;
     var IsiPad = navigator.userAgent.indexOf("iPad") != -1;
     var IsSafari = navigator.userAgent.indexOf("Safari") != -1;
     var IsAndroid = navigator.userAgent.toLowerCase().indexOf('android') >= 0;
+    var IsChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
 
     // Width & Height calculation variables
     var jqHeader; // jQuery Object
@@ -157,6 +162,9 @@ var skullJS = (function () {
         },
         isAppleBrower: function() {
             return IsiPhone || IsiPad || IsiPod || IsSafari;
+        },
+        isBrowserChrome: function() {
+            return IsChrome;
         },
         getClickEventName: function () {
             if (this.isIOS()) {
@@ -389,6 +397,11 @@ var skullJS = (function () {
                 arrOut.push(items.splice(0, chunkSize))
             }
             return arrOut;
+        },
+
+        // Prüfen ob Variable ein Array ist
+        isArray: function (obj) {
+            return Object.prototype.toString.call(obj) === '[object Array]';
         },
 
         // Prüfen ob String ein JSON ist
