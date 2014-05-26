@@ -1,10 +1,13 @@
 /*! bitflower SkullJS 
- * Version: 1.3.2
+ * Version: 1.3.3
  * Author: Matthias Max
  * Copyright bitflower 2014
  *
  * Change Log:
  * -----------
+ * 2014-05-26:
+ * - isBrowserIE Check
+ *
  * 2014-05-15:
  * - isBrowserChrome Check
  * - isArray Function
@@ -47,6 +50,7 @@ var skullJS = (function () {
     var IsSafari = navigator.userAgent.indexOf("Safari") != -1;
     var IsAndroid = navigator.userAgent.toLowerCase().indexOf('android') >= 0;
     var IsChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+    var IsIE = navigator.userAgent.toLowerCase().indexOf('msie') > -1;
 
     // Width & Height calculation variables
     var jqHeader; // jQuery Object
@@ -165,6 +169,9 @@ var skullJS = (function () {
         },
         isBrowserChrome: function() {
             return IsChrome;
+        },
+        isBrowserIE: function () {
+            return IsIE;
         },
         getClickEventName: function () {
             if (this.isIOS()) {
